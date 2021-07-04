@@ -10,7 +10,7 @@ It also has an extra service that exposes the ratio of mutants to humans.
 
 ## Demo
 
-If you want to see the demo of this project deployed, you can visit
+If you want to see the demo of this project deployed, you can visit: 'http://ec2-18-221-219-135.us-east-2.compute.amazonaws.com:8080/swagger-ui.html'.
 
 ---
 
@@ -25,6 +25,10 @@ In order to use the project you must have the following tools:
 
 
 ### Installation 🔧
+Clone this repository on your local machine:
+```
+git clone https://github.com/CCLR/mutants.git
+``` 
 
 Open IntelliJ, find the folder where the project was clone and open it.
 
