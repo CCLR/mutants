@@ -39,6 +39,10 @@ IntelliJ should download the maven dependencies, and build the project.
 ### Deploy ⚙️
 
 - Go to class src/main/java/com/meli/exam/mutant/MutantApplication.java
+- Modify the default profile (dev) to the profile you want to deploy 
+    - if you want to deploy in the production profile, you must go to application.properties and set the correct credentials of the IAM user to connect to the DynamoDB service
+    - if you want to deploy with the dev profile, you must In IntelliJ press Ctrl twice to open the Run Anything window and paste the following command
+
 - Right click on this class and select Run 'MutantApplicat....main()'.
 
 IntelliJ will start the MutantApplication with Spring Boot over port 8080.

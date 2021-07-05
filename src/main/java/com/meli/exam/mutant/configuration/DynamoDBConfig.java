@@ -1,5 +1,8 @@
 package com.meli.exam.mutant.configuration;
 
+import com.amazonaws.client.builder.AwsClientBuilder;
+import com.amazonaws.services.dynamodbv2.local.main.ServerRunner;
+import com.amazonaws.services.dynamodbv2.local.server.DynamoDBProxyServer;
 import com.meli.exam.mutant.pojos.DnaVerified;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -14,6 +17,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapperConfig;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.services.dynamodbv2.util.TableUtils;
+import org.springframework.context.annotation.Profile;
 
 /**
  *
@@ -21,15 +25,31 @@ import com.amazonaws.services.dynamodbv2.util.TableUtils;
 @Configuration
 public class DynamoDBConfig {
 
-
-
     @Value("${aws.accessKey}")
     private String awsAccessKey;
 
     @Value("${aws.secretKey}")
     private String awsSecretKey;
 
+
     @Bean
+    @Profile("dev")
+    public DynamoDBMapper dynamoDBMapperDev()  throws Exception{
+        System.setProperty("sqlite4java.library.path", "native-libs");
+        DynamoDBProxyServer server = ServerRunner.createServerFromCommandLineArgs(
+                new String[]{"-inMemory"});
+        server.start();
+        AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard().withEndpointConfiguration(
+                new AwsClientBuilder.EndpointConfiguration("http://localhost:8000", "us-west-2"))
+                .withCredentials(new AWSStaticCredentialsProvider(amazonAWSCredentials()))
+                .build();
+        var dynamoDBMapper = new DynamoDBMapper(client, DynamoDBMapperConfig.DEFAULT);
+        init(dynamoDBMapper, client);
+        return dynamoDBMapper;
+    }
+
+    @Bean
+    @Profile("production")
     public DynamoDBMapper dynamoDBMapper() {
         AmazonDynamoDB client = AmazonDynamoDBClientBuilder.standard()
                 .withCredentials(new AWSStaticCredentialsProvider(amazonAWSCredentials()))
