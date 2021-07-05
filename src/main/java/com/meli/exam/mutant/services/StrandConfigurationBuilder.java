@@ -1,6 +1,7 @@
 package com.meli.exam.mutant.services;
 
 import com.meli.exam.mutant.iservices.IStrandConfigurationBuilder;
+import com.meli.exam.mutant.utils.Constants;
 import org.springframework.stereotype.Service;
 
 
@@ -70,7 +71,7 @@ public class StrandConfigurationBuilder implements IStrandConfigurationBuilder {
                 }
             }
 
-            if (itemsInDiagonal >= 4) {
+            if (itemsInDiagonal >= Constants.NUMBER_OF_IDENTICAL_LETTERS) {
                 verticalObliqueStrandsConfiguration.add(strandConfigurationPrimaryOblique);
                 verticalObliqueStrandsConfiguration.add(strandConfigurationSecondaryOblique);
             }

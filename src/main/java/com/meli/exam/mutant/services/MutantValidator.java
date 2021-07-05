@@ -6,8 +6,8 @@ import com.meli.exam.mutant.iservices.IMutantValidator;
 import com.meli.exam.mutant.iservices.IStrandConfigurationDetector;
 import com.meli.exam.mutant.pojos.DnaSequence;
 import com.meli.exam.mutant.pojos.DnaVerified;
+import com.meli.exam.mutant.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -19,9 +19,6 @@ public class MutantValidator implements IMutantValidator {
 
     @Autowired
     IStrandConfigurationDetector strandConfigurationService;
-
-    @Value("${minimum.count.mutant.matches}")
-    private int minimumCountMutantMatches;
 
     @Autowired
     private DnaVerifiedDao dnaVerifiedDao;
@@ -39,7 +36,7 @@ public class MutantValidator implements IMutantValidator {
     public Boolean isMutant(DnaSequence dnaSequence) {
         int numberStrandsConfigurationWith4EqualLetters = strandConfigurationService.numberOfStrandsConfigurationFoundToBeMutant(dnaSequence.getDna());
 
-        IntPredicate matchesBeingMutant = counterMatches -> counterMatches >= minimumCountMutantMatches;
+        IntPredicate matchesBeingMutant = counterMatches -> counterMatches >= Constants.MINIMUM_NUMBER_MATCHES_TO_BE_MUTANT;
         dnaVerifiedDao.createDnaVerified(new DnaVerified(dnaSequence.getDna().toString(), matchesBeingMutant.test(numberStrandsConfigurationWith4EqualLetters)));
 
         return matchesBeingMutant.test(numberStrandsConfigurationWith4EqualLetters);

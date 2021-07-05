@@ -1,8 +1,8 @@
 package com.meli.exam.mutant.services;
 
 import com.meli.exam.mutant.iservices.IStrandConfigurationDetector;
+import com.meli.exam.mutant.utils.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,9 +16,6 @@ public class StrandConfigurationDetector implements IStrandConfigurationDetector
 
     @Autowired
     StrandConfigurationBuilder strandConfigurationBuilder;
-
-    @Value("${minimum.count.mutant.matches}")
-    private int minimumCountMutantMatches;
 
     /**
      * The initial dna strands configuration, correspond to the vertical strands configurations,
@@ -35,7 +32,7 @@ public class StrandConfigurationDetector implements IStrandConfigurationDetector
     @Override
     public int numberOfStrandsConfigurationFoundToBeMutant(List<String> dna) {
         int matches = mutantStrandsConfigurationFinder(dna);
-        if (matches < minimumCountMutantMatches) {
+        if (matches < Constants.MINIMUM_NUMBER_MATCHES_TO_BE_MUTANT) {
             matches += mutantStrandsConfigurationFinder(strandConfigurationBuilder.getVerticalObliqueStrandConfiguration(dna));
         }
         return matches;

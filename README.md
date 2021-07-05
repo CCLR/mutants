@@ -38,22 +38,26 @@ IntelliJ should download the maven dependencies, and build the project.
 
 ### Deploy ⚙️
 
-- Go to class src/main/java/com/meli/exam/mutant/MutantApplication.java
-- Modify the default profile (dev) to the profile you want to deploy 
-    - if you want to deploy in the production profile, you must go to application.properties and set the correct credentials of the IAM user to connect to the DynamoDB service
-    - if you want to deploy with the dev profile, you must In IntelliJ press Ctrl twice to open the Run Anything window and paste the following command
+1. Go to class src/main/java/com/meli/exam/mutant/MutantApplication.java
+2. Modify the default profile (dev) to the profile you want to deploy 
+    - production: If you want to deploy in the production profile, you must go to application.properties and set the correct credentials of the IAM user to connect to the DynamoDB service
+    - dev: If you want to deploy with the dev profile, you must In IntelliJ press Ctrl twice to open the Run Anything window and paste the following command
+        ```
+        mvn compile
+        ``` 
+3. Right click on this class and select Run 'MutantApplicat....main()'.
 
-- Right click on this class and select Run 'MutantApplicat....main()'.
+4. IntelliJ will start the MutantApplication with Spring Boot over port 8080.
 
-IntelliJ will start the MutantApplication with Spring Boot over port 8080.
-
-_To verify the project started you con go to: `http://localhost:8080/swagger-ui.html`._
+_To verify the project started you can go to: `http://localhost:8080/swagger-ui.html`._
 
 ---
 
 ### Run coverage framework 🔩
 
-_In IntelliJ press Ctrl twice to open the Run Anything window and paste the below command._
+_if you have the project deployed with the dev profile, you should stop it, in order not to have problems with the local DynamoDB server_
+
+In IntelliJ press Ctrl twice to open the Run Anything window and paste the below command.
 
 ```
 mvn test jacoco:report
@@ -69,6 +73,7 @@ Then, go to `target/site/jacoco/index.html` and open this page in the browser to
 * [Lombok](https://projectlombok.org/) - Used to reduce boilerplate code for model/data objects
 * [Swagger](https://swagger.io/) - API documentation
 * [DynamoDB](https://aws.amazon.com/dynamodb/) - AWS noSQL database service
+* [EC2](https://aws.amazon.com/es/ec2) -  Provides scalable computing capacity in AWS
 * [Junit](https://junit.org/junit5/) - The unit testing framework
 * [Jacoco](https://www.eclemma.org/jacoco/) - Java code coverage library
 

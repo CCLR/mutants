@@ -7,6 +7,8 @@ public  class Constants {
     private Constants() { }
 
     public static final Pattern NITROGENOUS_MUTANT_PATTERN = Pattern.compile("([ACTG])\\1{3}", Pattern.CASE_INSENSITIVE);
+    public static final int MINIMUM_NUMBER_MATCHES_TO_BE_MUTANT = 2;
+    public static final int NUMBER_OF_IDENTICAL_LETTERS = 4;
 
     public static final String MESSAGE_ERROR_DNA_NOT_EMPTY = "Dna cannot be empty.";
     public static final String MESSAGE_ERROR_CHARACTERS_NOT_ALLOW =  "only the letters (A,T,C,G) are allowed";
