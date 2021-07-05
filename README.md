@@ -12,7 +12,7 @@ It also has an extra service that exposes the ratio of mutants to humans.
 
 If you want to see the demo of this project deployed, you can visit: 
 
-- http://ec2-18-221-219-135.us-east-2.compute.amazonaws.com:8080/swagger-ui.html
+- http://ec2-13-58-185-14.us-east-2.compute.amazonaws.com:8080/swagger-ui.html
 
 ---
 
