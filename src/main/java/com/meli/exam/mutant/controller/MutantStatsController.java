@@ -18,7 +18,7 @@ public class MutantStatsController {
      *
      * @return MutantStats with the detected DNA statistics
      */
-    @GetMapping("/")
+    @GetMapping("")
     public ResponseEntity<MutantStats> retriveMutantStats() {
         mutantStatsBuilder.getMutantStats();
         return ResponseEntity.ok(mutantStatsBuilder.getMutantStats());
